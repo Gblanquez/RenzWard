@@ -3,14 +3,14 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { Core } from '@unseenco/taxi'
 import { Renderer } from '@unseenco/taxi';
-import './transitions/About'
+
 import AboutPage from './transitions/About';
 import workPage from './transitions/WorkPage';
 import myHome from './transitions/Home';
 import workRender from './renders/WorkRender';
 import homeRender from './renders/HomeRender';
 import aboutRender from './renders/AboutRender';
-import customRender from './renders/Load';
+// import customRender from './renders/Load';
 
 //Swiper Case Studies
 
@@ -48,19 +48,17 @@ setInterval(function () {
 
 
 
-
 const taxi = new Core({
     renderers: {
-        load: customRender,
         home: homeRender,
         work: workRender,
         about: aboutRender,
         
     },
     transitions: {
-        home: myHome,
-        work: workPage,
-        about: AboutPage
+        homeTran: myHome,
+        workTran: workPage,
+        aboutTran: AboutPage
     }
 })
 //Page Transition Taxi Js End//

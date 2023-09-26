@@ -20,6 +20,45 @@ export default class workPage extends Transition {
    */
   onEnter({ to, trigger, done }) {
     // do something else ...
+
+    const workTemplateH1 = document.querySelectorAll("[data-a='template-h1']");
+    const workTemplateText = document.querySelectorAll("[data-a='template-text']");
+
+    const templateH1 = new SplitType(workTemplateH1, { types: 'words, chars, lines'  })
+    const templateT = new SplitType(workTemplateText, { types: 'words, chars, lines'  })
+
+    const templateImg = [...document.querySelectorAll("[data-a='template-img']")]
+
+
+    gsap.from(templateH1.words, {
+      y: '120%',
+      duration: 1.8,
+      ease: 'expo.out',
+      stagger: {
+        each: 0.03
+      }
+    })
+
+    gsap.from(templateT.lines, {
+      y: '120%',
+      opacity: 0,
+      duration: 1.8,
+      ease: 'expo.out',
+      stagger: {
+        each: 0.03
+      }
+    })
+
+    gsap.from(templateImg, {
+      y: '120%',
+      opacity: 0,
+      duration: 1.8,
+      ease: 'expo.out'
+    })
+
+
+
+
     done()
   }
 }

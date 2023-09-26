@@ -1,7 +1,10 @@
 import { Transition } from '@unseenco/taxi'
-import gsap from 'gsap';
+import gsap from 'gsap'
 import SplitType from 'split-type'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
+
 gsap.registerPlugin( ScrollTrigger);
 
 
@@ -11,14 +14,8 @@ export default class AboutPage extends Transition {
      * Handle the transition leaving the previous page.
      * @param { { from: HTMLElement, trigger: string|HTMLElement|false, done: function } } props
      */
-    onLeave({ from, trigger, done }) {
+onLeave({ from, trigger, done }) {
       // do something ...
-      const mainH1About = [...document.querySelectorAll('[data-a="about-h1"]')];
-      const aboutInfo = [...document.querySelectorAll('[data-a="about-text"]')];
-      
-      const aboutText = new SplitType(mainH1About, { types: 'words, chars, lines'  })
-      const aboutTextInfo = new SplitType(aboutInfo, { types: 'words, chars, lines'  })
-     
 
 
       done()
