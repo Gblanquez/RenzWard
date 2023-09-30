@@ -1,7 +1,7 @@
 import { Renderer } from '@unseenco/taxi';
 import gsap from 'gsap';
 import { CustomEase } from "gsap/CustomEase";
-
+import Lenis from '@studio-freight/lenis'
 import SplitType from 'split-type'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Swiper from 'swiper/bundle';
@@ -11,6 +11,51 @@ gsap.registerPlugin( ScrollTrigger, CustomEase);
 
 export default class homeRender extends Renderer {
   initialLoad() {
+
+
+    //Lenis Scroll
+
+    let lenis;
+    if (Webflow.env("editor") === undefined) {
+      lenis = new Lenis({
+        lerp: 0.1,
+        orientation: 'horizontal',
+        infinite: true,
+        wheelMultiplier: 0.4,
+        gestureOrientation: "both",
+        normalizeWheel: false,
+        smoothTouch: false
+      });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
+    $("[data-lenis-start]").on("click", function () {
+      lenis.start();
+    });
+    $("[data-lenis-stop]").on("click", function () {
+      lenis.stop();
+    });
+    $("[data-lenis-toggle]").on("click", function () {
+      $(this).toggleClass("stop-scroll");
+      if ($(this).hasClass("stop-scroll")) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    });
+
+    console.log(lenis);
+
+
+
+
+
+
+
+    //End Lenis Scroll
   const homeT = document.querySelectorAll("[data-a='home-text']");
   const homeImg = document.querySelectorAll("[data-a='home-img']");
   const lineDrag = document.querySelectorAll("[data-a='drag-line']");
@@ -35,23 +80,23 @@ export default class homeRender extends Renderer {
 
     //SWIPER ACTIVATE
 
-     $('.slider_main_wrapper').each(function (index) {
-        const swiper = new Swiper($(this).find('.swiper')[0], {
-            slidesPerView: 'auto',
-            mousewheel: {
-                invert: true,
-                // sensitivity: 1,
+    //  $('.slider_main_wrapper').each(function (index) {
+    //     const swiper = new Swiper($(this).find('.swiper')[0], {
+    //         slidesPerView: 'auto',
+    //         mousewheel: {
+    //             invert: true,
+    //             // sensitivity: 1,
                 
-            },
-            speed: 800,
-            keyboard: true,
-            centeredSlides: true,
-            loop: true,
-            followFinger: true,
+    //         },
+    //         speed: 800,
+    //         keyboard: true,
+    //         centeredSlides: true,
+    //         loop: true,
+    //         followFinger: true,
             
     
-        });
-    });
+    //     });
+    // });
 
     //SWIPER ACTIVE END//
 

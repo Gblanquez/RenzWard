@@ -10,6 +10,11 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
+"@studio-freight/lenis@^1.0.25":
+  "integrity" "sha512-O/yBzy+SEMbp+x/isXm5CqFsGUbazwOKTGeMo5tZCHgTEUINxndttTI/90jgysXNRx0f+QDJBKaBTdx40KBF7w=="
+  "resolved" "https://registry.npmjs.org/@studio-freight/lenis/-/lenis-1.0.25.tgz"
+  "version" "1.0.25"
+
 "@unseenco/e@^2.3.0":
   "integrity" "sha512-CAhlhyQ690oa67JnbXg8uFaRXGkZB6vtAclyBcwI8WwliNDCaRpY22k2sFX1ehcro0HMa6197K2rFYLkkdNqmA=="
   "resolved" "https://registry.npmjs.org/@unseenco/e/-/e-2.3.0.tgz"
