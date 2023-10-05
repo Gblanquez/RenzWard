@@ -63,6 +63,3 @@ const taxi = new Core({
 })
 //Page Transition Taxi Js End//
 
-console.log('Hello')
-console.log(taxi);
-

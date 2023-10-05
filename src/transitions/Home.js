@@ -2,6 +2,7 @@ import { Transition } from '@unseenco/taxi'
 import gsap from 'gsap'
 import SplitType from 'split-type'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Lenis from '@studio-freight/lenis'
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
@@ -13,7 +14,49 @@ export default class myHome extends Transition {
    * Handle the transition leaving the previous page.
    * @param { { from: HTMLElement, trigger: string|HTMLElement|false, done: function } } props
    */
-  onLeave({ from, trigger, done }) {
+   async onLeave({ from, trigger, done }) {
+
+    const mainH1About = [...document.querySelectorAll('[data-a="about-h1"]')];
+    const aboutInfo = [...document.querySelectorAll('[data-a="about-text"]')];
+    
+    const aboutText = new SplitType(mainH1About, { types: 'words, chars, lines'  })
+    const aboutTextInfo = new SplitType(aboutInfo, { types: 'words, chars, lines'  })
+
+    await Promise.all([
+      gsap.to(aboutTextInfo.lines, {
+        y: '-120%',
+        duration: 0.8,
+        opacity: 0,
+        ease: 'expo.out',
+        // scrollTrigger: {
+        //     trigger: aboutTextInfo.lines,
+        //     start: 'top bottom',
+            
+        //     scrub: 1
+        // },
+        stagger: {
+            each: 0.02
+        }
+    }),
+
+    gsap.to(aboutText.lines, {
+      y: '-120%',
+      duration: 1.4,
+      opacity: 0,
+      ease: 'expo.out',
+      // scrollTrigger: {
+      //     trigger: aboutText.lines,
+      //     start: 'top bottom',
+      //     scrub: 1
+      // },
+      stagger: {
+          each: 0.02
+      }
+
+    }, 0.1),
+  
+
+    ])
     
     done()
   }
@@ -23,24 +66,39 @@ export default class myHome extends Transition {
    * @param { { to: HTMLElement, trigger: string|HTMLElement|false, done: function } } props
    */
   onEnter({ to, trigger, done }) {
+    let lenis;
+    lenis = new Lenis({
+      lerp: 0.1,
+      orientation: 'horizontal',
+      infinite: true,
+      wheelMultiplier: 0.4,
+      gestureOrientation: "both",
+      normalizeWheel: false,
+      smoothTouch: false
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
     // do something else ...
-    $('.slider_main_wrapper').each(function (index) {
-        const swiper = new Swiper($(this).find('.swiper')[0], {
-            slidesPerView: 'auto',
-            mousewheel: {
-                invert: true,
-                // sensitivity: 1,
+    // $('.slider_main_wrapper').each(function (index) {
+    //     const swiper = new Swiper($(this).find('.swiper')[0], {
+    //         slidesPerView: 'auto',
+    //         mousewheel: {
+    //             invert: true,
+    //             // sensitivity: 1,
                 
-            },
-            speed: 800,
-            keyboard: true,
-            centeredSlides: true,
-            loop: true,
-            followFinger: true,
+    //         },
+    //         speed: 800,
+    //         keyboard: true,
+    //         centeredSlides: true,
+    //         loop: true,
+    //         followFinger: true,
             
     
-        });
-    });
+    //     });
+    // });
 
 
     const homeT = document.querySelectorAll("[data-a='home-text']");
@@ -64,6 +122,7 @@ export default class myHome extends Transition {
 
     gsap.from(heroSocialText.lines, {
       y: '120%',
+      delay: 1.6,
       opacity: 0,
       duration: 1.6,
       ease: 'expo.out',
@@ -75,6 +134,7 @@ export default class myHome extends Transition {
 
     gsap.from(heroWorkText.lines, {
       y: '120%',
+      delay: 1.6,
       opacity: 0,
       duration: 1.6,
       ease: 'expo.out',
@@ -85,6 +145,7 @@ export default class myHome extends Transition {
 
     gsap.from(homeImg, {
       skewY: '50%',
+      delay: 1.6,
       skewX: '10%',
       scale: 1.1,
       opacity: 0,
@@ -97,6 +158,7 @@ export default class myHome extends Transition {
     
     gsap.from(homeImg, {
       x: '-110%',
+      delay: 1.6,
       y: '-30%',
       ease: 'expo.out',
       duration: 2,

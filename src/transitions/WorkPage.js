@@ -1,6 +1,7 @@
 import { Transition } from '@unseenco/taxi'
 import gsap from 'gsap'
 import SplitType from 'split-type'
+import Lenis from '@studio-freight/lenis'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin( ScrollTrigger);
@@ -20,6 +21,22 @@ export default class workPage extends Transition {
    */
   onEnter({ to, trigger, done }) {
     // do something else ...
+
+    let lenis;
+    lenis = new Lenis({
+      lerp: 0.1,
+      orientation: 'vertical',
+      infinite: false,
+      wheelMultiplier: 0.4,
+      gestureOrientation: "both",
+      normalizeWheel: false,
+      smoothTouch: false
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 
     const workTemplateH1 = document.querySelectorAll("[data-a='template-h1']");
     const workTemplateText = document.querySelectorAll("[data-a='template-text']");

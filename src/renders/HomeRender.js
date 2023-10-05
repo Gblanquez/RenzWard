@@ -6,6 +6,7 @@ import SplitType from 'split-type'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
+import { event } from 'jquery';
 gsap.registerPlugin( ScrollTrigger, CustomEase);
 
 
@@ -47,7 +48,7 @@ export default class homeRender extends Renderer {
       }
     });
 
-    console.log(lenis);
+
 
 
 
@@ -56,6 +57,16 @@ export default class homeRender extends Renderer {
 
 
     //End Lenis Scroll
+
+
+
+
+    //Lottie File Beging
+
+
+
+
+    //Lottie File End
   const homeT = document.querySelectorAll("[data-a='home-text']");
   const homeImg = document.querySelectorAll("[data-a='home-img']");
   const lineDrag = document.querySelectorAll("[data-a='drag-line']");
@@ -76,40 +87,23 @@ export default class homeRender extends Renderer {
     let progress = Math.round(counter.value);
     $(".load_numb").text(progress);
   }
+
+  function playLottie (){
+    $('.trigger').trigger('click');
+    console.log('playing lottie')
+  }
   function endLoaderAnimation() {
 
-    //SWIPER ACTIVATE
 
-    //  $('.slider_main_wrapper').each(function (index) {
-    //     const swiper = new Swiper($(this).find('.swiper')[0], {
-    //         slidesPerView: 'auto',
-    //         mousewheel: {
-    //             invert: true,
-    //             // sensitivity: 1,
-                
-    //         },
-    //         speed: 800,
-    //         keyboard: true,
-    //         centeredSlides: true,
-    //         loop: true,
-    //         followFinger: true,
-            
-    
-    //     });
-    // });
-
-    //SWIPER ACTIVE END//
-
-
-
-
+  playLottie();
 
 
     const endLine = [...document.querySelectorAll('.line_static')];
     const logoSvg = document.getElementById('logo')
     const linkWrap = [...document.querySelectorAll('.case_study_link')]
   
-  
+
+
     gsap.to(endLine, {
         y: '110%',
         duration: 1.6,
