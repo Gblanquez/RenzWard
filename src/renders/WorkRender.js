@@ -9,6 +9,8 @@ gsap.registerPlugin( ScrollTrigger);
 export default class workRender extends Renderer {
   onEnter() {
     // run after the new content has been added to the Taxi container
+
+
   }
 
   onEnterCompleted() {
@@ -32,6 +34,9 @@ export default class workRender extends Renderer {
 
   onLeave() {
     // run before the transition.onLeave method is called
+    const tl = gsap.timeline()
+
+
   }
 
   onLeaveCompleted() {

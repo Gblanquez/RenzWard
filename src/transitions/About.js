@@ -5,7 +5,9 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Swiper from 'swiper/bundle';
 import Lenis from '@studio-freight/lenis'
 import 'swiper/css/bundle';
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 
+gsap.registerPlugin(ScrambleTextPlugin);
 gsap.registerPlugin( ScrollTrigger);
 
 
@@ -15,7 +17,7 @@ export default class AboutPage extends Transition {
      * Handle the transition leaving the previous page.
      * @param { { from: HTMLElement, trigger: string|HTMLElement|false, done: function } } props
      */
-async onLeave({ from, trigger, done }) {
+ onLeave({ from, trigger, done }) {
       // do something ...
 
 
@@ -28,50 +30,7 @@ async onLeave({ from, trigger, done }) {
      
       const allPage = document.querySelector('.home_page_wrapper')
 
-      await Promise.all([
-
-
-          gsap.to(aboutText.words, {
-            y: '120%',
-            duration: 0.6,
-            opacity: 0,
-            ease: 'expo.out',
-            // scrollTrigger: {
-            //     trigger: aboutText.lines,
-            //     start: 'top bottom',
-            //     scrub: 1
-            // },
-            stagger: {
-                each: 0.02
-            }
-      
-          }),
-      
-          gsap.to(aboutTextInfo.lines, {
-            y: '120%',
-            duration: 0.6,
-            opacity: 0,
-            ease: 'expo.out',
-            // scrollTrigger: {
-            //     trigger: aboutTextInfo.lines,
-            //     start: 'top bottom',
-                
-            //     scrub: 1
-            // },
-            stagger: {
-                each: 0.02
-            }
-        }),
-
-        gsap.to(allPage,{
-          width: '90vw',
-          backgroundColor: "white",
-          height: '90vh',
-          opacity: '90%',
-          ease: 'expo.out',
-          duration: 1.2
-        })
-      ])
+  
       
   
 
@@ -86,8 +45,10 @@ async onLeave({ from, trigger, done }) {
       // do something else ...
 
 
+      
+
       let lenis;
-     lenis = new Lenis({
+      lenis = new Lenis({
       lerp: 0.1,
       orientation: 'vertical',
       infinite: false,
@@ -96,11 +57,14 @@ async onLeave({ from, trigger, done }) {
       normalizeWheel: false,
       smoothTouch: false
     });
+
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
+    scrollTo(0, 0)
 
 
       const mainH1About = [...document.querySelectorAll('[data-a="about-h1"]')];
@@ -110,36 +74,28 @@ async onLeave({ from, trigger, done }) {
       const aboutTextInfo = new SplitType(aboutInfo, { types: 'words, chars, lines'  })
 
       
-      gsap.from(aboutText.words, {
+      gsap.from(aboutText.lines, {
         y: '120%',
-        duration: 1.6,
+        duration: 1,
         opacity: 0,
-        ease: 'expo.out',
-        // scrollTrigger: {
-        //     trigger: aboutText.lines,
-        //     start: 'top bottom',
-        //     scrub: 1
-        // },
-        stagger: {
-            each: 0.02
-        }
-
-      })
+        scrambleText: { 
+          chars: "upperCase",
+          text: "{original}", 
+          revealDelay: 1, 
+          speed: 0.6, 
+        },
+      });
 
       gsap.from(aboutTextInfo.lines, {
         y: '120%',
-        duration: 1.8,
+        duration: 1,
         opacity: 0,
-        ease: 'expo.out',
-        // scrollTrigger: {
-        //     trigger: aboutTextInfo.lines,
-        //     start: 'top bottom',
-            
-        //     scrub: 1
-        // },
-        stagger: {
-            each: 0.02
-        }
+        scrambleText: { 
+          chars: "upperCase",
+          text: "{original}", 
+          revealDelay: 1, 
+          speed: 0.6, 
+        },
     })
 
       

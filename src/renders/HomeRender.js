@@ -7,32 +7,122 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { event } from 'jquery';
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+
 gsap.registerPlugin( ScrollTrigger, CustomEase);
+gsap.registerPlugin(ScrambleTextPlugin);
 
-
+console.log(ScrambleTextPlugin)
 export default class homeRender extends Renderer {
   initialLoad() {
 
+    // Get the elements
+const pageLinks = document.querySelectorAll("[data-a='link']");
+const socialLinks = document.querySelectorAll('.social_global_link');
+
+// Register the ScrambleTextPlugin
+gsap.registerPlugin(ScrambleTextPlugin);
+
+// Function to add animations
+function addAnimations(links) {
+  links.forEach(link => {
+    const textElement = link.querySelector("[data='t-link']");
+    const lineElement = link.querySelector("[data-a='s-link']");
+    let originalText = textElement.textContent;
+
+    link.addEventListener('mouseover', () => {
+      // Start the scramble animation
+      gsap.to(textElement, {
+        duration: 0.5,
+        scrambleText: {
+          text: originalText,
+          chars: 'abcdefghijklmnopqrstuvwxyz',
+          speed: 0.3
+        }
+      });
+
+      // Animate the link line
+      gsap.to(lineElement, {
+        scaleX: 1,
+        duration: 0.5,
+        ease: 'power1.out',
+        transformOrigin: 'left'
+      });
+    });
+
+    link.addEventListener('mouseout', () => {
+      // Stop the scramble animation and return to the original text
+      gsap.to(textElement, {
+        duration: 0.5,
+        scrambleText: {
+          text: originalText,
+          chars: originalText,
+          speed: 0.3
+        }
+      });
+
+      // Animate the link line
+      gsap.to(lineElement, {
+        scaleX: 0,
+        duration: 0.5,
+        ease: 'power1.out',
+        transformOrigin: 'right'
+      });
+    });
+  });
+}
+
+// Add animations to the links
+addAnimations(pageLinks);
+addAnimations(socialLinks);
+
 
     //Lenis Scroll
+
+    // const isMobile = window.innerWidth < 768;
+    // isMobile ? "vertical" : "horizontal"
+    
+
 
     let lenis;
     if (Webflow.env("editor") === undefined) {
       lenis = new Lenis({
         lerp: 0.1,
-        orientation: 'horizontal',
+        orientation: window.innerWidth < 830 ? 'vertical' : 'horizontal',
         infinite: true,
         wheelMultiplier: 0.4,
         gestureOrientation: "both",
-        normalizeWheel: false,
+        normalizeWheel: true,
         smoothTouch: false
       });
       function raf(time) {
         lenis.raf(time);
         requestAnimationFrame(raf);
+        
       }
       requestAnimationFrame(raf);
     }
+
+
+    // Debounce function
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
+// Event listener for resize
+window.addEventListener('resize', debounce(function() {
+  lenis.orientation = window.innerWidth < 830 ? 'vertical' : 'horizontal';
+}, 100));
+
+
     $("[data-lenis-start]").on("click", function () {
       lenis.start();
     });
@@ -47,6 +137,7 @@ export default class homeRender extends Renderer {
         lenis.start();
       }
     });
+
 
 
 
@@ -183,38 +274,91 @@ export default class homeRender extends Renderer {
 
 
     console.log('its loading');
+
+
+
+ 
+
+
   }
 
 
+
+  
+
   onEnter() {
     // run after the new content has been added to the Taxi container
+
+
     
   }
 
   onEnterCompleted() {
-     // run after the transition.onEnter has fully completed
-    //  $('.slider_main_wrapper').each(function (index) {
-    //     const swiper = new Swiper($(this).find('.swiper')[0], {
-    //         slidesPerView: 'auto',
-    //         mousewheel: {
-    //             invert: true,
-    //             // sensitivity: 1,
-                
-    //         },
-    //         speed: 800,
-    //         keyboard: true,
-    //         centeredSlides: true,
-    //         loop: true,
-    //         followFinger: true,
-            
-    
-    //     });
-    // });
-  }
+    // Get the elements
+const pageLinks = document.querySelectorAll("[data-a='link']");
+const socialLinks = document.querySelectorAll('.social_global_link');
+
+// Register the ScrambleTextPlugin
+gsap.registerPlugin(ScrambleTextPlugin);
+
+// Function to add animations
+function addAnimations(links) {
+  links.forEach(link => {
+    const textElement = link.querySelector("[data='t-link']");
+    const lineElement = link.querySelector("[data-a='s-link']");
+    let originalText = textElement.textContent;
+
+    link.addEventListener('mouseover', () => {
+      // Start the scramble animation
+      gsap.to(textElement, {
+        duration: 0.5,
+        scrambleText: {
+          text: originalText,
+          chars: 'abcdefghijklmnopqrstuvwxyz',
+          speed: 0.3
+        }
+      });
+
+      // Animate the link line
+      gsap.to(lineElement, {
+        scaleX: 1,
+        duration: 0.5,
+        ease: 'power1.out',
+        transformOrigin: 'left'
+      });
+    });
+
+    link.addEventListener('mouseout', () => {
+      // Stop the scramble animation and return to the original text
+      gsap.to(textElement, {
+        duration: 0.5,
+        scrambleText: {
+          text: originalText,
+          chars: originalText,
+          speed: 0.3
+        }
+      });
+
+      // Animate the link line
+      gsap.to(lineElement, {
+        scaleX: 0,
+        duration: 0.5,
+        ease: 'power1.out',
+        transformOrigin: 'right'
+      });
+    });
+  });
+}
+
+  addAnimations(pageLinks);
+  addAnimations(socialLinks);
+ 
+}
 
   onLeave() {
     // run before the transition.onLeave method is called
 
+    const tl = gsap.timeline()
     const homeT = document.querySelectorAll("[data-a='home-text']");
     const socialL = document.querySelectorAll("[data-a='social-text']");
     const workText = document.querySelectorAll("[data-a='work-text']");
@@ -227,41 +371,42 @@ export default class homeRender extends Renderer {
 
 
 
-      gsap.to(heroText.lines, {
-        y: '-120%',
-        ease: 'expo.out',
-        duration: 1.6,
-        stagger: {
-          each: 0.03
-        }
-      }),
 
-      gsap.to(homeImg, {
-        y: '-120%',
-        duration: 1.8,
-        ease: 'expo.out',
-        stagger: {
-          each: 0.03
-        }
-      }),
+      // gsap.to(heroText.lines, {
+      //   y: '-120%',
+      //   ease: 'expo.out',
+      //   duration: 1.6,
+      //   stagger: {
+      //     each: 0.03
+      //   }
+      // }),
 
-      gsap.to(heroSocialText.lines, {
-        y: '-120%',
-        duration: 1.6,
-        ease: 'expo.out',
-        stagger: {
-          each: 0.03
-        }
-      }),
+      // gsap.to(homeImg, {
+      //   y: '-120%',
+      //   duration: 1.8,
+      //   ease: 'expo.out',
+      //   stagger: {
+      //     each: 0.03
+      //   }
+      // }),
 
-      gsap.to(heroWorkText.lines, {
-        y: '-120%',
-        ease: 'expo.out',
-        duration: 1.6,
-        stagger: {
-          each: 0.03
-        }
-      })
+      // gsap.to(heroSocialText.lines, {
+      //   y: '-120%',
+      //   duration: 1.6,
+      //   ease: 'expo.out',
+      //   stagger: {
+      //     each: 0.03
+      //   }
+      // }),
+
+      // gsap.to(heroWorkText.lines, {
+      //   y: '-120%',
+      //   ease: 'expo.out',
+      //   duration: 1.6,
+      //   stagger: {
+      //     each: 0.03
+      //   }
+      // })
 
 
 

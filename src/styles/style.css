@@ -2,3 +2,14 @@
     display: flex;
 }
 
+.link_line {
+    transform: scaleX(0);
+    transform-origin: left;
+    /* other styles... */
+  }
+
+  .social_link_line {
+    width: 100%;
+    transform-origin: left;
+    /* other styles... */
+  }

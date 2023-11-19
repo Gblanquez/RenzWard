@@ -3,13 +3,14 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { Core } from '@unseenco/taxi'
 import { Renderer } from '@unseenco/taxi';
-
+import gsap from 'gsap';
 import AboutPage from './transitions/About';
 import workPage from './transitions/WorkPage';
 import myHome from './transitions/Home';
 import workRender from './renders/WorkRender';
 import homeRender from './renders/HomeRender';
 import aboutRender from './renders/AboutRender';
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 // import customRender from './renders/Load';
 
 //Swiper Case Studies
@@ -41,11 +42,6 @@ setInterval(function () {
   updateTime();
 }, 1000);
 
-//Time Location Setup End
-
-
-//Page Transition Taxi Js/
-
 
 
 const taxi = new Core({
@@ -61,5 +57,7 @@ const taxi = new Core({
         aboutTran: AboutPage
     }
 })
-//Page Transition Taxi Js End//
+
+
+
 

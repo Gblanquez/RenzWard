@@ -22,6 +22,17 @@ export default class workPage extends Transition {
   onEnter({ to, trigger, done }) {
     // do something else ...
 
+    function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
+    topFunction()
+
+    const tl = gsap.timeline()
+
+
+
     let lenis;
     lenis = new Lenis({
       lerp: 0.1,
@@ -32,11 +43,13 @@ export default class workPage extends Transition {
       normalizeWheel: false,
       smoothTouch: false
     });
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
+    scrollTo(0,0)
 
     const workTemplateH1 = document.querySelectorAll("[data-a='template-h1']");
     const workTemplateText = document.querySelectorAll("[data-a='template-text']");
