@@ -34,7 +34,7 @@ export default class workRender extends Renderer {
 
   onLeave() {
     // run before the transition.onLeave method is called
-    const tl = gsap.timeline()
+
 
 
   }
