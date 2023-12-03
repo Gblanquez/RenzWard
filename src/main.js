@@ -42,6 +42,66 @@ setInterval(function () {
   updateTime();
 }, 1000);
 
+    // Get the elements
+    const pageLinks = document.querySelectorAll("[data-a='link']");
+    const socialLinks = document.querySelectorAll('.social_global_link');
+    
+    // Register the ScrambleTextPlugin
+    gsap.registerPlugin(ScrambleTextPlugin);
+    
+    // Function to add animations
+    function addAnimations(links) {
+      links.forEach(link => {
+        const textElement = link.querySelector("[data='t-link']");
+        const lineElement = link.querySelector("[data-a='s-link']");
+        let originalText = textElement.textContent;
+    
+        link.addEventListener('mouseover', () => {
+          // Start the scramble animation
+          gsap.to(textElement, {
+            duration: 0.5,
+            scrambleText: {
+              text: originalText,
+              chars: 'abcdefghijklmnopqrstuvwxyz',
+              speed: 0.3
+            }
+          });
+    
+          // Animate the link line
+          gsap.to(lineElement, {
+            scaleX: 1,
+            duration: 0.5,
+            ease: 'power1.out',
+            transformOrigin: 'left'
+          });
+        });
+    
+        link.addEventListener('mouseout', () => {
+          // Stop the scramble animation and return to the original text
+          gsap.to(textElement, {
+            duration: 0.5,
+            scrambleText: {
+              text: originalText,
+              chars: originalText,
+              speed: 0.3
+            }
+          });
+    
+          // Animate the link line
+          gsap.to(lineElement, {
+            scaleX: 0,
+            duration: 0.5,
+            ease: 'power1.out',
+            transformOrigin: 'right'
+          });
+        });
+      });
+    }
+    
+    // Add animations to the links
+    addAnimations(pageLinks);
+    addAnimations(socialLinks);
+
 
 
 const taxi = new Core({

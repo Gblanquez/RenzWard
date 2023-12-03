@@ -16,65 +16,7 @@ console.log(ScrambleTextPlugin)
 export default class homeRender extends Renderer {
   initialLoad() {
 
-    // Get the elements
-const pageLinks = document.querySelectorAll("[data-a='link']");
-const socialLinks = document.querySelectorAll('.social_global_link');
 
-// Register the ScrambleTextPlugin
-gsap.registerPlugin(ScrambleTextPlugin);
-
-// Function to add animations
-function addAnimations(links) {
-  links.forEach(link => {
-    const textElement = link.querySelector("[data='t-link']");
-    const lineElement = link.querySelector("[data-a='s-link']");
-    let originalText = textElement.textContent;
-
-    link.addEventListener('mouseover', () => {
-      // Start the scramble animation
-      gsap.to(textElement, {
-        duration: 0.5,
-        scrambleText: {
-          text: originalText,
-          chars: 'abcdefghijklmnopqrstuvwxyz',
-          speed: 0.3
-        }
-      });
-
-      // Animate the link line
-      gsap.to(lineElement, {
-        scaleX: 1,
-        duration: 0.5,
-        ease: 'power1.out',
-        transformOrigin: 'left'
-      });
-    });
-
-    link.addEventListener('mouseout', () => {
-      // Stop the scramble animation and return to the original text
-      gsap.to(textElement, {
-        duration: 0.5,
-        scrambleText: {
-          text: originalText,
-          chars: originalText,
-          speed: 0.3
-        }
-      });
-
-      // Animate the link line
-      gsap.to(lineElement, {
-        scaleX: 0,
-        duration: 0.5,
-        ease: 'power1.out',
-        transformOrigin: 'right'
-      });
-    });
-  });
-}
-
-// Add animations to the links
-addAnimations(pageLinks);
-addAnimations(socialLinks);
 
 
     //Lenis Scroll
@@ -273,10 +215,26 @@ window.addEventListener('resize', debounce(function() {
   }, 0);
 
 
-    console.log('its loading');
 
+    // Get the elements
+const images = document.querySelectorAll('.project_main_img_wrapper');
 
+// Get the initial state
+const initialState = gsap.utils.getFlipState(images);
 
+// Set the final state
+images.forEach(image => {
+  image.style.width = '50vw';
+  image.style.height = 'auto';
+  image.style.position = 'relative';
+  image.style.top = 'auto';
+});
+
+// Get the final state
+const finalState = gsap.utils.getFlipState(images);
+
+// Animate from the initial state to the final state
+gsap.fromTo(images, {xPercent: -100, yPercent: -100}, {duration: 1, xPercent: 0, yPercent: 0, ease: "power1.inOut", stagger: 0.1, flipState: finalState});
  
 
 
